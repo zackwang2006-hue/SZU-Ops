@@ -1,0 +1,12 @@
+# MySQL 配置：启动时加 --spring.profiles.active=mysql
+# 需先手工建库：CREATE DATABASE campus_ops DEFAULT CHARSET utf8mb4;
+# 表结构参照 docs/ARCHITECTURE.md 第 5 节（或用 schema-h2.sql 改写为 MySQL 方言）
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/campus_ops?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai&useSSL=false
+    username: root
+    password: root
+  sql:
+    init:
+      mode: never

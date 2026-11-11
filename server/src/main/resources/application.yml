@@ -1,0 +1,38 @@
+# 默认配置：H2 内存库，开箱即跑
+server:
+  # 云托管通过 PORT 环境变量注入端口，本地默认 18081
+  port: ${PORT:18081}
+
+spring:
+  application:
+    name: szu-ops-server
+  datasource:
+    driver-class-name: org.h2.Driver
+    # MODE=MySQL 兼容 AUTO_INCREMENT；NON_KEYWORDS 规避 H2 保留字(role/comment/action 等)
+    url: jdbc:h2:mem:campusops;MODE=MySQL;DATABASE_TO_LOWER=TRUE;NON_KEYWORDS=USER,ROLE,ACTION,COMMENT,VALUE
+    username: sa
+    password: ""
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+  sql:
+    init:
+      mode: always
+      schema-locations: classpath:schema-h2.sql
+
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
+  global-config:
+    banner: false
+
+# JWT 配置（生产环境务必修改 secret）
+jwt:
+  secret: campus-ops-jwt-secret-key-please-change-me-in-production-0123456789abcdef
+  expire-hours: 12
+
+logging:
+  level:
+    com.campusops: info
